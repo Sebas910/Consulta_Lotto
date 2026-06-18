@@ -1,0 +1,12 @@
+{
+  "name": "ganaste-el-loto",
+  "version": "1.0.0",
+  "description": "Revisa al instante si ganaste el Loto de Chile. Sitio estático.",
+  "scripts": {
+    "test": "node tests/core.test.mjs && node tests/ui.test.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  },
+  "license": "MIT"
+}

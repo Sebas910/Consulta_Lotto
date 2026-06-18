@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¿Ganaste el Loto? · Revisa tu cartilla — Chile</title>
+  <meta name="description" content="Marca tu cartilla y revisa al instante si ganaste algún premio del Loto de Chile. Resultados por sorteo, todas las categorías." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="aura" aria-hidden="true"></div>
+
+  <main class="shell">
+
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <p class="eyebrow">Loto · Chile · Polla Chilena</p>
+      <h1 class="hero__title">¿Ganaste<br><span>el Loto?</span></h1>
+      <p class="hero__sub">Marca tu cartilla y revisa al instante, sorteo por sorteo,
+        si tienes premio en alguna categoría. Sin cuentas, sin esperas.</p>
+    </header>
+
+    <!-- ================= TARJETA REVISOR ================= -->
+    <section class="card" aria-label="Revisar cartilla">
+
+      <!-- Paso 1: sorteo -->
+      <div class="step">
+        <div class="step__head">
+          <span class="step__n">1</span>
+          <h2 class="step__title">Elige el sorteo</h2>
+        </div>
+        <div class="field">
+          <select id="sorteo" class="select" aria-label="Número de sorteo">
+            <option value="">Cargando sorteos…</option>
+          </select>
+          <p class="field__hint" id="sorteoHint">Se cargan desde los resultados oficiales.</p>
+        </div>
+      </div>
+
+      <!-- Paso 2: números -->
+      <div class="step">
+        <div class="step__head">
+          <span class="step__n">2</span>
+          <h2 class="step__title">Marca tus 6 números</h2>
+          <div class="counter" id="counter"><b id="count">0</b><span>/6</span></div>
+        </div>
+
+        <div class="board" id="board" role="group" aria-label="Selecciona 6 números del 1 al 41"></div>
+
+        <div class="board__actions">
+          <button type="button" class="btn btn--ghost" id="azar">Al azar</button>
+          <button type="button" class="btn btn--ghost" id="limpiar">Limpiar</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn--go" id="revisar" disabled>
+        Revisar mi cartilla
+      </button>
+    </section>
+
+    <!-- ================= RESULTADO ================= -->
+    <section class="result" id="result" hidden aria-live="polite">
+      <!-- contenido inyectado por JS -->
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="foot">
+      <p>Datos referenciales que reflejan los resultados de Polla Chilena de Beneficencia.
+        <strong>No es un sitio oficial.</strong> Para cobrar, valida tu boleto en una agencia.</p>
+      <p class="foot__meta">Sorteos: martes, jueves y domingo, 21:00 h · Plazo para cobrar: 60 días.</p>
+    </footer>
+  </main>
+
+  <script src="loto-core.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
