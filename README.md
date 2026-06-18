@@ -2,7 +2,7 @@
 
 Sitio web para revisar **al instante** si ganaste algún premio del **Loto de Chile**. Marca tus 6 números en la cartilla, elige el sorteo y te dice tu categoría automáticamente, revisando todas las modalidades disponibles.
 
-**Demo en vivo:** [sbxz.github.io/loto-consulta](https://sbxz.github.io/loto-consulta) *(actualiza el link con tu URL real)*
+**Demo en vivo:** [sbxz.github.io/loto-consulta](https://sebas910.github.io/Consulta_Lotto)
 
 ---
 
