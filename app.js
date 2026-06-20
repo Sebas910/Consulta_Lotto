@@ -6,7 +6,7 @@
 const SHEET_ID = "1WGtZG2WWqJjGcJxIzR4-7Hl-090HZB7oxBWocX7A2w0";
 const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
-const { MIN, MAX, REQUERIDOS, CATEGORIAS, parseGviz, aciertosDe, evaluarPrincipal, mejorJubilazo } = LotoCore;
+const { MIN, MAX, REQUERIDOS, CATEGORIAS, parseGviz, aciertosDe, evaluarPrincipal } = LotoCore;
 
 let DATA = [];
 const seleccion = new Set();
@@ -138,18 +138,33 @@ function render(item) {
   unico(item.revancha, "Revancha");
   unico(item.desquite, "Desquite");
 
-  const jub = (lista, label, nota) => {
-    if (!lista || !lista.length) return;
-    const j = mejorJubilazo(jugados, lista);
-    if (j.gana) gano = true;
-    modItems.push(`<div class="mod">
-        <span class="mod__name">${label}</span>
-        <span class="mod__balls" style="color:var(--faint);font-size:13px">${nota}</span>
-        <span class="mod__tag ${j.gana ? "win" : ""}">${j.gana ? "🎉 ¡Ganaste!" : "mejor: " + j.best}</span>
-      </div>`);
+  // Jubilazo / Jubilazo 50: mostramos cada serie ganadora con sus números
+  // y resaltamos las coincidencias con la cartilla del usuario.
+  const jubBloque = (lista, label) => {
+    if (!lista || !lista.length) return "";
+    let mejor = 0;
+    const filas = lista.map((serie, i) => {
+      const ac = aciertosDe(jugados, serie);
+      const win = ac.length === REQUERIDOS;
+      if (ac.length > mejor) mejor = ac.length;
+      if (win) gano = true;
+      const tag = win ? "🎉 ¡Ganaste!" : `${ac.length}/6`;
+      return `<div class="jubrow ${win ? "is-win" : ""}">
+          <span class="jubrow__n">Serie ${i + 1}</span>
+          <span class="jubrow__balls">${miniBalls(serie, jugados)}</span>
+          <span class="jubrow__tag ${win ? "win" : ""}">${tag}</span>
+        </div>`;
+    }).join("");
+    const n = lista.length;
+    return `<div class="jub">
+        <div class="jub__head">
+          <span class="jub__name">${label}</span>
+          <span class="jub__sub">${n} ${n === 1 ? "serie" : "series"} · ganas con los 6 exactos de una serie · mejor: ${mejor}/6</span>
+        </div>
+        <div class="jub__list">${filas}</div>
+      </div>`;
   };
-  jub(item.jubilazo, "Jubilazo", `${(item.jubilazo || []).length} sorteos · requiere 6 exactos`);
-  jub(item.jubilazo50, "Jubilazo 50", "requiere 6 exactos");
+  const jubHTML = jubBloque(item.jubilazo, "Jubilazo") + jubBloque(item.jubilazo50, "Jubilazo 50");
 
   const multiNota = item.multiplicador ? `Multiplicador del sorteo: ×${item.multiplicador}` : "";
   const pozoLine = item.pozo
@@ -169,11 +184,17 @@ function render(item) {
 
       ${verdict}
 
-      <div class="mods">
+      ${modItems.length ? `<div class="mods">
         <p class="mods__title">Modalidades adicionales</p>
         <p class="mods__note">Solo cuentan si las contrataste. Recargado, Revancha y Desquite se ganan solo con los 6 aciertos.</p>
         ${modItems.join("")}
-      </div>
+      </div>` : ""}
+
+      ${jubHTML ? `<div class="jubs">
+        <p class="mods__title">Jubilazo</p>
+        <p class="mods__note">Números ganadores de cada serie. Tus aciertos aparecen resaltados en dorado.</p>
+        ${jubHTML}
+      </div>` : ""}
 
       <p class="r-source">Resultados que reflejan los oficiales de Polla Chilena.
         Valida siempre un premio en una agencia oficial.</p>

@@ -73,10 +73,22 @@ body{
 
 /* ================= HERO ================= */
 .hero{ padding:18px 4px 26px; }
-.eyebrow{
-  margin:0 0 14px; font-family:var(--font-display);
-  font-size:12px; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
-  color:var(--gold);
+.badge{
+  display:inline-flex; align-items:center; gap:9px; margin:0 0 18px;
+  padding:7px 14px 7px 12px; border-radius:999px;
+  font-family:var(--font-display); font-size:11.5px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--gold);
+  background:rgba(246,196,83,.08); border:1px solid rgba(246,196,83,.22);
+  backdrop-filter:blur(8px);
+}
+.badge__dot{
+  width:7px;height:7px; border-radius:50%; background:var(--gold);
+  box-shadow:0 0 0 0 rgba(246,196,83,.6); animation:pulse 2.2s ease-out infinite;
+}
+@keyframes pulse{
+  0%{ box-shadow:0 0 0 0 rgba(246,196,83,.55); }
+  70%{ box-shadow:0 0 0 7px rgba(246,196,83,0); }
+  100%{ box-shadow:0 0 0 0 rgba(246,196,83,0); }
 }
 .hero__title{
   margin:0; font-family:var(--font-display); font-weight:700;
@@ -199,6 +211,15 @@ body{
 .r-head .r-date{ color:var(--muted); font-size:14px; }
 .r-pozo{ margin:2px 0 18px; color:var(--faint); font-size:13px; }
 
+/* títulos de sección con acento dorado */
+.r-label, .mods__title{
+  display:flex; align-items:center; gap:9px;
+}
+.r-label::before, .mods__title::before{
+  content:""; flex:none; width:16px; height:2px; border-radius:2px;
+  background:linear-gradient(90deg, var(--gold), transparent);
+}
+
 /* fila de números ganadores */
 .r-label{ font-size:12px; letter-spacing:.16em; text-transform:uppercase;
   color:var(--faint); margin:0 0 10px; font-weight:600; }
@@ -258,6 +279,45 @@ body{
 .mod__tag{ margin-left:auto; font-size:12.5px; font-weight:600; color:var(--faint);
   white-space:nowrap; }
 .mod__tag.win{ color:var(--win); }
+
+/* ================= JUBILAZO (series ganadoras) ================= */
+.jubs{ margin-top:22px; }
+.jub{
+  margin-top:14px; padding:clamp(14px,3.5vw,18px);
+  border:1px solid var(--brd-soft); border-radius:var(--r-md);
+  background:linear-gradient(180deg, var(--panel), var(--panel-2));
+}
+.jub + .jub{ margin-top:12px; }
+.jub__head{ display:flex; align-items:baseline; gap:6px 12px; flex-wrap:wrap; margin-bottom:14px; }
+.jub__name{
+  font-family:var(--font-display); font-weight:700; font-size:16px; color:var(--gold);
+  display:flex; align-items:center; gap:8px;
+}
+.jub__name::before{
+  content:""; width:7px;height:7px; border-radius:50%; background:var(--gold);
+  box-shadow:0 0 10px 1px rgba(246,196,83,.6);
+}
+.jub__sub{ font-size:12.5px; color:var(--faint); }
+.jub__list{ display:flex; flex-direction:column; gap:8px; }
+.jubrow{
+  display:flex; align-items:center; gap:8px 12px; flex-wrap:wrap;
+  padding:10px 12px; border:1px solid var(--brd-soft); border-radius:var(--r-sm);
+  background:rgba(255,255,255,.022); transition:border-color .15s, background .15s;
+}
+.jubrow:hover{ border-color:var(--brd); }
+.jubrow.is-win{
+  border-color:rgba(65,224,140,.45);
+  background:linear-gradient(180deg, rgba(65,224,140,.14), rgba(65,224,140,.04));
+}
+.jubrow__n{
+  font-family:var(--font-display); font-size:12px; font-weight:600;
+  color:var(--faint); min-width:62px;
+}
+.jubrow.is-win .jubrow__n{ color:var(--win); }
+.jubrow__balls{ display:flex; gap:5px; flex-wrap:wrap; }
+.jubrow__tag{ margin-left:auto; font-size:12.5px; font-weight:700; color:var(--faint);
+  white-space:nowrap; }
+.jubrow__tag.win{ color:var(--win); }
 
 .r-source{ margin:20px 2px 0; font-size:12px; color:var(--faint); }
 .r-source a{ color:var(--muted); }
